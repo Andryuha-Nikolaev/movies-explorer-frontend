@@ -12,8 +12,9 @@
   width: 96px;
   height: 36px;
   border-radius: 10px;
-  background: #E8E8E8;
-  color: #FFFFFF;
+  background: #e8e8e8;
+  /* color: #ffffff; */
+  color: #000;
   text-decoration: none;
   text-align: center;
   font-style: normal;
@@ -26,9 +27,10 @@
 }
 
 .nav-tab__link:hover {
-  background: black;
-  transform: rotate(5deg) scale(1.5);
-  transition-duration: .5s;
+  /* background: white; */
+  /* transform: rotate(5deg) scale(1.5); */
+  transform: translate(0, -10px) scale(1.5);
+  transition-duration: 0.5s;
 }
 
 @media screen and (max-width: 767px) {
