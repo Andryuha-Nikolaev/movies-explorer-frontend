@@ -115,7 +115,8 @@
   }
 
   .profile__button-save {
-    margin-top: 80px;
+    /* margin-top: 80px; */
+    margin-top: 379px;
     font-size: 12px;
     line-height: 15px;
   }

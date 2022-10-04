@@ -11,6 +11,11 @@
   height: 38px;
 }
 
+.form__logo:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
 .form__title {
   margin: 0;
   padding: 40px 0;
@@ -160,7 +165,8 @@
   }
 
   .form {
-    min-height: 310px;
+    /* min-height: 310px; */
+    min-height: 468px;
   }
 
   .form__button-save {

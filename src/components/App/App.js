@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           <Route path="/profile">
             <Header />
             <Profile />
+          </Route>
+          <Route path="/*">
+            <NotFound />
           </Route>
         </Switch>
       </div>

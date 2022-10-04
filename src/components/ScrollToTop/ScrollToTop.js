@@ -5,7 +5,7 @@ import arrow from '../../images/up-arrow.svg';
 
 function ScrollToTop() {
   return (
-    <Link to="promo" className="scroll" smooth={true} duration={600}>
+    <Link to="header" className="scroll" smooth={true} duration={600}>
       <img src={arrow} alt="логотип" className="scroll__image" />
     </Link>
   );
