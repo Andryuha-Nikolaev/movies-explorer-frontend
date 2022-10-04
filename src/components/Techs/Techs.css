@@ -54,10 +54,7 @@
   grid-template-columns: repeat(auto-fit, 90px);
   gap: 10px;
   justify-content: center;
-  /* display: flex;
-  flex-wrap: wrap; */
   list-style: none;
-  /* gap: 10px; */
 }
 
 .techs__list-item {
@@ -68,8 +65,8 @@
   border-radius: 10px;
   background-color: #e8e8e8;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   text-decoration: none;
 }
 

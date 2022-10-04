@@ -1,0 +1,15 @@
+.scroll {
+  position: fixed;
+  right: calc(50% - 25px);
+  width: 40px;
+  bottom: 0;
+}
+
+.scroll:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.scroll__image {
+  width: 30px;
+}
