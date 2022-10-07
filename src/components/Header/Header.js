@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 import account from '../../images/acc-button.svg';
 import menu from '../../images/menu-button.svg';
@@ -8,6 +9,16 @@ import menu from '../../images/menu-button.svg';
 const loggedIn = true;
 
 function Header() {
+  const [isClicked, setIsClicked] = useState(false);
+
+  function handleOpen() {
+    setIsClicked(true);
+  }
+
+  function handleClose() {
+    setIsClicked(false);
+  }
+
   return (
     <>
       {!loggedIn ? (
@@ -30,10 +41,10 @@ function Header() {
             <img src={logo} alt="логотип" />
           </Link>
           <div className="header__button-container_films">
-            <Link to="/signup" className="header__button">
+            <Link to="/movies" className="header__button">
               Фильмы
             </Link>
-            <Link to="/signin" className="header__button">
+            <Link to="/saved-movies" className="header__button">
               Сохранённые фильмы
             </Link>
           </div>
@@ -41,10 +52,11 @@ function Header() {
             <Link to="/profile" className="header__account-button">
               <img src={account} alt="аккаунт" />
             </Link>
-            <button className="header__menu-button">
+            <button onClick={handleOpen} className="header__menu-button">
               <img src={menu} alt="меню" />
             </button>
           </div>
+          {isClicked ? <Navigation handleClose={handleClose} /> : ''}
         </header>
       )}
     </>

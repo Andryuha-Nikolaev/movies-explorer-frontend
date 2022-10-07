@@ -3,6 +3,7 @@
   min-height: 74px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .header__button-container {
@@ -87,7 +88,7 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 576px) {
   .header {
     padding: 0 14px;
   }

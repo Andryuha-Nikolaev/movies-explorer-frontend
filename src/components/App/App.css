@@ -1,8 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
 .page {
   background-color: #ffffff;
   min-height: 100vh;
@@ -15,4 +10,9 @@
   min-width: 320px;
   width: 100%;
   /* background-color: bisque; */
+}
+
+* {
+  margin: 0;
+  padding: 0;
 }

@@ -2,7 +2,8 @@
   position: fixed;
   right: calc(50% - 25px);
   width: 40px;
-  bottom: 0;
+  bottom: 16px;
+  z-index: 1;
 }
 
 .scroll:hover {

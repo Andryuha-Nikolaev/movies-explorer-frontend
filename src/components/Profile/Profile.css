@@ -33,6 +33,8 @@
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
+  min-height: 30px;
+  cursor: text;
 }
 
 .profile__input {
@@ -51,11 +53,11 @@
 .profile__border {
   border-bottom: 1px solid #e8e8e8;
   margin-bottom: 17px;
-  margin-top: 16px;
+  /* margin-top: 16px; */
 }
 
 .profile__button-save {
-  margin-top: 220px;
+  margin-top: 213px;
   min-height: 16px;
   font-style: normal;
   font-weight: 400;
@@ -93,11 +95,11 @@
   }
 
   .profile__button-save {
-    margin-top: 210px;
+    margin-top: 193px;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 576px) {
   .profile {
     padding: 70px 30px 40px 30px;
   }
@@ -116,7 +118,7 @@
 
   .profile__button-save {
     /* margin-top: 80px; */
-    margin-top: 379px;
+    margin-top: 362px;
     font-size: 12px;
     line-height: 15px;
   }

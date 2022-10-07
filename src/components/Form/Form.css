@@ -152,7 +152,7 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 576px) {
   .form__container {
     padding: 56px 30px 30px 30px;
     align-items: center;

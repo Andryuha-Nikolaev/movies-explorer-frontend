@@ -1,0 +1,28 @@
+.card {
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  height: 218px;
+}
+
+.card__save-button {
+  background: #f9f9f9;
+  border: none;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
+  border-radius: 50px;
+  background-image: url(../../images/save-button.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.card__save-button:hover {
+  box-shadow: 0px 0px 9px 7px rgba(43, 224, 128, 0.8);
+  opacity: 0.6;
+}
+
+.card__save-button_active {
+  background: #2be080;
+  background-image: url(../../images/save-button.svg);
+}
