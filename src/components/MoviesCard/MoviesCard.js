@@ -1,7 +1,7 @@
 import React from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({ card }) {
+function MoviesCard({ card, isSavedFilms }) {
   const cardSaveButtonClassName = `${
     card.saved ? 'card__save-button card__save-button_active' : 'card__save-button'
   }`;
@@ -14,7 +14,11 @@ function MoviesCard({ card }) {
           <h2 className="card__text">{card.name}</h2>
           <span className="card__time">{card.time}</span>
         </div>
-        <button className={cardSaveButtonClassName}></button>
+        {isSavedFilms ? (
+          <button className="card__delete-button"></button>
+        ) : (
+          <button className={cardSaveButtonClassName}></button>
+        )}
       </div>
     </li>
   );

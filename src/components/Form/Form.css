@@ -117,6 +117,10 @@
 }
 
 .form__input:focus {
+  background-color: rgba(43, 224, 128, 0.4);
+}
+
+.form__input:focus {
   border-bottom: 1px solid #000000;
 }
 

@@ -49,3 +49,10 @@
   transition: 0.4s ease;
   transform: translate(16px);
 }
+
+@media screen and (max-width: 576px) {
+  .filter__text {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
