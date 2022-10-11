@@ -13,8 +13,8 @@
   height: 36px;
   border-radius: 10px;
   background: #e8e8e8;
-  /* color: #ffffff; */
-  color: #000;
+  color: #ffffff;
+  /* color: #000; */
   text-decoration: none;
   text-align: center;
   font-style: normal;
@@ -30,6 +30,7 @@
   transform: translate(0, -10px) scale(1.5);
   transition-duration: 0.5s;
   cursor: pointer;
+  background: #2be080;
 }
 
 @media screen and (max-width: 576px) {
