@@ -1,0 +1,19 @@
+.page {
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.page__content {
+  margin: 0 auto;
+  font-family: 'Inter', Arial, sans-serif;
+  max-width: 1280px;
+  min-width: 320px;
+  width: 100%;
+  /* background-color: bisque; */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
