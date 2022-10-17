@@ -1,24 +1,25 @@
 import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ cards, isSavedFilms }) {
-  if (cards.length > 0) {
-    console.log('yes');
-  } else {
-    console.log('no');
-  }
+function MoviesCardList({ cards, isSavedFilms, isLoading }) {
   return (
-    <>
-      <ul className="cards__list">
-        {cards.map((card) => (
-          <MoviesCard key={card.id} card={card} isSavedFilms={isSavedFilms} />
-        ))}
-      </ul>
-      <div className="cards__button-container">
-        {isSavedFilms ? '' : <button className="cards__button">Ещё</button>}
-      </div>
-    </>
+    <section className="cards">
+      {isLoading && <Preloader />}
+      {!isLoading && (
+        <>
+          <ul className="cards__list">
+            {cards.map((card) => (
+              <MoviesCard key={card.id} card={card} isSavedFilms={isSavedFilms} />
+            ))}
+          </ul>
+          <div className="cards__button-container">
+            {isSavedFilms ? '' : <button className="cards__button">Ещё</button>}
+          </div>
+        </>
+      )}
+    </section>
   );
 }
 
