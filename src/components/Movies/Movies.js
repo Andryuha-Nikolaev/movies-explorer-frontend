@@ -15,12 +15,16 @@ function Movies() {
   const [filteredMovies, setFilteredMovies] = useState([]); //отфильтрованные по запросу и чекбоксу
   const [isShortMovies, setIsShortMovies] = useState(false); //включен ли чекбокс короткометражек
 
+  const [isReqErr, setIsReqErr] = useState(false); //ошибка запроса к серверу
+  const [isNotFound, setIsNotFound] = useState(false); //фильмы по запросу не найдены
+
   //основнай метод фильрации, который отдает массив с фильмами на рендеринг
   function handleFilterMovies(movies, query, short) {
     const moviesList = filterMovies(movies, query, short); //фильтруем полученный массив по запросу
     setInitialMovies(moviesList); //записываем в стейт
     setFilteredMovies(short ? filterDuration(moviesList) : moviesList); //если чекбокс тру, то фильруем по длине и записываем в стейт
     localStorage.setItem('movies', JSON.stringify(moviesList));
+    setIsNotFound(moviesList.length === 0 ? true : false);
   }
 
   function handleShortMovies() {
@@ -29,11 +33,14 @@ function Movies() {
       // setFilteredMovies(filterDuration(initialMovies));
       if (filterDuration(initialMovies).length === 0) {
         setFilteredMovies(filterDuration(initialMovies));
+        setIsNotFound(true);
       } else {
         setFilteredMovies(filterDuration(initialMovies));
+        setIsNotFound(false);
       }
     } else {
       setFilteredMovies(initialMovies);
+      setIsNotFound(initialMovies.length === 0 ? true : false);
     }
     localStorage.setItem('shortMovies', !isShortMovies);
   }
@@ -49,10 +56,11 @@ function Movies() {
     movies
       .getCards()
       .then((cardsData) => {
-        // setAllMovies(cardsData);
         handleFilterMovies(cardsData, query, isShortMovies);
+        setIsReqErr(false);
       })
       .catch((err) => {
+        setIsReqErr(true);
         console.log(err);
       })
       .finally(() => {
@@ -61,7 +69,6 @@ function Movies() {
   }
 
   useEffect(() => {
-    // console.log(localStorage.getItem('shortMovies'));
     if (localStorage.getItem('shortMovies') === 'true') {
       setIsShortMovies(true);
     } else {
@@ -73,16 +80,24 @@ function Movies() {
     if (localStorage.getItem('movies')) {
       const movies = JSON.parse(localStorage.getItem('movies'));
       setInitialMovies(movies);
-      if (isShortMovies) {
+      if (localStorage.getItem('shortMovies') === 'true') {
         setFilteredMovies(filterDuration(movies));
       } else {
         setFilteredMovies(movies);
       }
+      setIsNotFound(movies.length === 0 ? true : false);
+    } else {
+      setIsNotFound(true);
     }
-    // else {
+  }, []);
 
-    // }
-  }, [isShortMovies]);
+  useEffect(() => {
+    if (filteredMovies.length === 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }, [filteredMovies]);
 
   return (
     <section className="movies">
@@ -92,7 +107,13 @@ function Movies() {
         onFilter={handleShortMovies}
         isShortMovies={isShortMovies}
       />
-      <MoviesCardList cards={filteredMovies} isSavedFilms={false} isLoading={isLoading} />
+      <MoviesCardList
+        cards={filteredMovies}
+        isSavedFilms={false}
+        isLoading={isLoading}
+        isReqErr={isReqErr}
+        isNotFound={isNotFound}
+      />
       <Footer />
     </section>
   );

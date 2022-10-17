@@ -2,12 +2,21 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
+import SearchError from '../SearchError/SearchError';
 
-function MoviesCardList({ cards, isSavedFilms, isLoading }) {
+function MoviesCardList({ cards, isSavedFilms, isLoading, isReqErr, isNotFound }) {
   return (
     <section className="cards">
       {isLoading && <Preloader />}
-      {!isLoading && (
+      {isNotFound && !isLoading && <SearchError errorText={'Ничего не найдено'} />}
+      {isReqErr && !isLoading && (
+        <SearchError
+          errorText={
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+          }
+        />
+      )}
+      {!isLoading && !isReqErr && !isNotFound && (
         <>
           <ul className="cards__list">
             {cards.map((card) => (

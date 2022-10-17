@@ -5,7 +5,7 @@
   position: relative;
 }
 
-.search__error {
+.search__form-error {
   position: absolute;
   bottom: 20px;
   left: 0;
