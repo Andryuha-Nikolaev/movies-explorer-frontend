@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ onSearchMovies }) {
+function SearchForm({ onSearchMovies, onFilter, isShortMovies }) {
+  const [query, setQuery] = useState('');
+
+  function handleChangeQuery(e) {
+    setQuery(e.target.value);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    onSearchMovies();
+    onSearchMovies(query);
   }
 
   return (
@@ -17,10 +23,11 @@ function SearchForm({ onSearchMovies }) {
           id="search-input"
           type="text"
           placeholder="Фильм"
-          required></input>
+          onChange={handleChangeQuery}
+          value={query || ''}></input>
         <button className="search__button" type="submit"></button>
       </form>
-      <FilterCheckbox />
+      <FilterCheckbox onFilter={onFilter} isShortMovies={isShortMovies} />
     </section>
   );
 }
