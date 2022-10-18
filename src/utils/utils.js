@@ -1,3 +1,5 @@
+import { shorts } from './constants';
+
 export const checkResponse = (res) => {
   if (res.ok) {
     return res.json(); //если да, то возвращает полученные данные
@@ -21,5 +23,5 @@ export function filterMovies(movies, query) {
 
 //фильтр по длительности
 export function filterDuration(movies) {
-  return movies.filter((movie) => movie.duration < 40);
+  return movies.filter((movie) => movie.duration < shorts);
 }

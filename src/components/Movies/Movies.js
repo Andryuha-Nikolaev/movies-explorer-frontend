@@ -10,7 +10,6 @@ import * as movies from '../../utils/MoviesApi';
 
 function Movies() {
   const [isLoading, setIsLoading] = useState(false); //загрузка прелоадер
-  // const [allMovies, setAllMovies] = useState([]); //все фильмы с сервера
   const [initialMovies, setInitialMovies] = useState([]); //отфильтрованные по запросу
   const [filteredMovies, setFilteredMovies] = useState([]); //отфильтрованные по запросу и чекбоксу
   const [isShortMovies, setIsShortMovies] = useState(false); //включен ли чекбокс короткометражек
@@ -18,29 +17,35 @@ function Movies() {
   const [isReqErr, setIsReqErr] = useState(false); //ошибка запроса к серверу
   const [isNotFound, setIsNotFound] = useState(false); //фильмы по запросу не найдены
 
+  //!!!!!!!!!!!
+  // function handleSingOut() {
+  //   localStorage.removeItem('movies');
+  //   localStorage.removeItem('movieSearch');
+  //   localStorage.removeItem('shortMovies');
+  // }
+
   //основнай метод фильрации, который отдает массив с фильмами на рендеринг
   function handleFilterMovies(movies, query, short) {
     const moviesList = filterMovies(movies, query, short); //фильтруем полученный массив по запросу
     setInitialMovies(moviesList); //записываем в стейт
     setFilteredMovies(short ? filterDuration(moviesList) : moviesList); //если чекбокс тру, то фильруем по длине и записываем в стейт
     localStorage.setItem('movies', JSON.stringify(moviesList));
-    setIsNotFound(moviesList.length === 0 ? true : false);
+    // setIsNotFound(moviesList.length === 0 ? true : false);
   }
 
   function handleShortMovies() {
     setIsShortMovies(!isShortMovies);
     if (!isShortMovies) {
-      // setFilteredMovies(filterDuration(initialMovies));
       if (filterDuration(initialMovies).length === 0) {
         setFilteredMovies(filterDuration(initialMovies));
-        setIsNotFound(true);
+        // setIsNotFound(true);
       } else {
         setFilteredMovies(filterDuration(initialMovies));
-        setIsNotFound(false);
+        // setIsNotFound(false);
       }
     } else {
       setFilteredMovies(initialMovies);
-      setIsNotFound(initialMovies.length === 0 ? true : false);
+      // setIsNotFound(initialMovies.length === 0 ? true : false);
     }
     localStorage.setItem('shortMovies', !isShortMovies);
   }
@@ -85,15 +90,19 @@ function Movies() {
       } else {
         setFilteredMovies(movies);
       }
-      setIsNotFound(movies.length === 0 ? true : false);
+      // setIsNotFound(movies.length === 0 ? true : false);
     } else {
-      setIsNotFound(true);
+      // setIsNotFound(true);
     }
   }, []);
 
   useEffect(() => {
-    if (filteredMovies.length === 0) {
-      setIsNotFound(true);
+    if (localStorage.getItem('movieSearch')) {
+      if (filteredMovies.length === 0) {
+        setIsNotFound(true);
+      } else {
+        setIsNotFound(false);
+      }
     } else {
       setIsNotFound(false);
     }
@@ -107,6 +116,7 @@ function Movies() {
         onFilter={handleShortMovies}
         isShortMovies={isShortMovies}
       />
+      {/* <span onClick={handleSingOut}>gggggg</span> */}
       <MoviesCardList
         cards={filteredMovies}
         isSavedFilms={false}
