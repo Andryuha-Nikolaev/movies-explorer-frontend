@@ -8,7 +8,7 @@ import { filterMovies, filterDuration } from '../../utils/utils';
 
 import * as movies from '../../utils/MoviesApi';
 
-function Movies() {
+function Movies({ loggedIn }) {
   const [isLoading, setIsLoading] = useState(false); //загрузка прелоадер
   const [initialMovies, setInitialMovies] = useState([]); //отфильтрованные по запросу
   const [filteredMovies, setFilteredMovies] = useState([]); //отфильтрованные по запросу и чекбоксу
@@ -110,7 +110,7 @@ function Movies() {
 
   return (
     <section className="movies">
-      <Header />
+      <Header loggedIn={loggedIn} />
       <SearchForm
         onSearchMovies={onSearchMovies}
         onFilter={handleShortMovies}

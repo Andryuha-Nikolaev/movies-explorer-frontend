@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Profile.css';
+import useForm from '../hooks/useForm';
 
-function Profile() {
+function Profile({ signOut, onUpdateUser }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  const { enteredValues, errors, handleChange, isFormValid, resetForm } = useForm();
+
+  useEffect(() => {
+    if (currentUser) {
+      resetForm(currentUser);
+    }
+  }, [currentUser, resetForm]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onUpdateUser({
+      name: enteredValues.name,
+      email: enteredValues.email,
+    });
+  }
+
   return (
     <section className="profile">
-      <h3 className="profile__title">Привет, Ира!</h3>
-      <form className="profile__form">
-        <label className="profile__field" htmlFor="name-input">
+      <h3 className="profile__title">Привет, {currentUser.name}!</h3>
+      <form id="form" className="profile__form" onSubmit={handleSubmit} noValidate>
+        <label className="profile__field">
           Имя
           <input
             name="name"
@@ -16,18 +36,39 @@ function Profile() {
             minLength="2"
             maxLength="40"
             required
+            onChange={handleChange}
+            value={enteredValues.name || ''}
+            pattern="^[A-Za-zА-Яа-яЁё /s -]+$"
           />
+          <span className="profile__input-error">{errors.name}</span>
         </label>
 
         <div className="profile__border"></div>
         <label className="profile__field">
           E-mail
-          <input name="email" className="profile__input" id="email-input" type="text" required />
+          <input
+            name="email"
+            className="profile__input"
+            id="email-input"
+            type="email"
+            required
+            onChange={handleChange}
+            value={enteredValues.email || ''}
+          />
+          <span className="profile__input-error">{errors.email}</span>
         </label>
-        <button type="submit" className="profile__button-save">
+        <button
+          type="submit"
+          className={
+            !isFormValid
+              ? 'profile__button-save form__button-save_inactive'
+              : 'profile__button-save'
+          }>
           Редактировать
         </button>
-        <button className="profile__logout">Выйти из аккаунта</button>
+        <button type="button" className="profile__logout" onClick={signOut}>
+          Выйти из аккаунта
+        </button>
       </form>
     </section>
   );

@@ -6,9 +6,7 @@ import logo from '../../images/logo.svg';
 import account from '../../images/acc-button.svg';
 import menu from '../../images/menu-button.svg';
 
-const loggedIn = true;
-
-function Header() {
+function Header({ loggedIn }) {
   const [isClicked, setIsClicked] = useState(false);
 
   function handleOpen() {
@@ -26,6 +24,14 @@ function Header() {
           <Link to="/" className="form__logo">
             <img src={logo} alt="логотип" />
           </Link>
+          {/* <div className="header__button-container_films">
+            <Link to="/movies" className="header__button">
+              Фильмы
+            </Link>
+            <Link to="/saved-movies" className="header__button">
+              Сохранённые фильмы
+            </Link>
+          </div> */}
           <div className="header__button-container">
             <Link to="/signup" className="header__button">
               Регистрация

@@ -13,10 +13,10 @@ const movies = [
   { _id: 3, image: movieImage, name: '35 слов о дизайне', time: '1ч 42м', saved: false },
 ];
 
-function SavedMovies() {
+function SavedMovies({ loggedIn }) {
   return (
     <section className="movies">
-      <Header />
+      <Header loggedIn={loggedIn} />
       <SearchForm />
       <MoviesCardList cards={movies} isSavedFilms={true} />
       <Footer />

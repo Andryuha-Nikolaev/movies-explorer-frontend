@@ -3,16 +3,20 @@ import { Link } from 'react-router-dom';
 import './Form.css';
 import logo from '../../images/logo.svg';
 
-function Form({ children, title, buttonText, question, linkText, link }) {
+function Form({ children, title, buttonText, question, linkText, link, onSubmit, isDisabled }) {
   return (
     <div className="form__container">
       <Link to="/" className="form__logo">
         <img src={logo} alt="логотип" />
       </Link>
       <h3 className="form__title">{title}</h3>
-      <form className="form">
+      <form className="form" id="form" onSubmit={onSubmit} noValidate>
         {children}
-        <button type="submit" className="form__button-save">
+        <button
+          type="submit"
+          className={
+            isDisabled ? 'form__button-save form__button-save_inactive' : 'form__button-save'
+          }>
           {buttonText}
         </button>
       </form>

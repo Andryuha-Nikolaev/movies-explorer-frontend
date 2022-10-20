@@ -25,3 +25,14 @@ export function filterMovies(movies, query) {
 export function filterDuration(movies) {
   return movies.filter((movie) => movie.duration < shorts);
 }
+
+//конвертер длительности фильмов
+export function durationConverter(duration) {
+  const hours = Math.floor(duration / 60);
+  const minutes = duration % 60;
+  if (hours > 0) {
+    return `${hours}ч ${minutes}м`;
+  } else {
+    return `${minutes}м`;
+  }
+}
