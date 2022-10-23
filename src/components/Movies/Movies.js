@@ -8,7 +8,7 @@ import { filterMovies, filterDuration } from '../../utils/utils';
 
 import * as movies from '../../utils/MoviesApi';
 
-function Movies({ loggedIn }) {
+function Movies({ loggedIn, handleLikeClick, savedMovies, onCardDelete }) {
   const [isLoading, setIsLoading] = useState(false); //загрузка прелоадер
   const [initialMovies, setInitialMovies] = useState([]); //отфильтрованные по запросу
   const [filteredMovies, setFilteredMovies] = useState([]); //отфильтрованные по запросу и чекбоксу
@@ -118,11 +118,14 @@ function Movies({ loggedIn }) {
       />
       {/* <span onClick={handleSingOut}>gggggg</span> */}
       <MoviesCardList
+        savedMovies={savedMovies}
         cards={filteredMovies}
         isSavedFilms={false}
         isLoading={isLoading}
         isReqErr={isReqErr}
         isNotFound={isNotFound}
+        handleLikeClick={handleLikeClick}
+        onCardDelete={onCardDelete}
       />
       <Footer />
     </section>

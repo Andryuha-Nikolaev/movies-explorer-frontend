@@ -2,9 +2,18 @@ import React from 'react';
 import { durationConverter } from '../../utils/utils';
 import './MoviesCard.css';
 
-function MoviesCard({ card, isSavedFilms }) {
+function MoviesCard({ card, isSavedFilms, handleLikeClick, onCardDelete, saved }) {
+  function onSave() {
+    handleLikeClick(card);
+  }
+
+  function onDelete() {
+    onCardDelete(card);
+    console.log(card);
+  }
+
   const cardSaveButtonClassName = `${
-    card.saved ? 'card__save-button card__save-button_active' : 'card__save-button'
+    saved ? 'card__save-button card__save-button_active' : 'card__save-button'
   }`;
 
   return (
@@ -13,7 +22,7 @@ function MoviesCard({ card, isSavedFilms }) {
         <img
           className="card__image"
           alt={card.nameRU}
-          src={`https://api.nomoreparties.co/${card.image.url}`}
+          src={isSavedFilms ? card.image : `https://api.nomoreparties.co/${card.image.url}`}
         />
       </a>
 
@@ -23,9 +32,12 @@ function MoviesCard({ card, isSavedFilms }) {
           <span className="card__time">{durationConverter(card.duration)}</span>
         </div>
         {isSavedFilms ? (
-          <button className="card__delete-button"></button>
+          <button type="button" className="card__delete-button" onClick={onDelete}></button>
         ) : (
-          <button className={cardSaveButtonClassName}></button>
+          <button
+            type="button"
+            className={cardSaveButtonClassName}
+            onClick={saved ? onDelete : onSave}></button>
         )}
       </div>
     </li>

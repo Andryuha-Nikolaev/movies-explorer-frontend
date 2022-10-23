@@ -5,8 +5,19 @@ import Preloader from '../Preloader/Preloader';
 import SearchError from '../SearchError/SearchError';
 import { showMoreDecktop, showMoreTablet, showMoreMobile } from '../../utils/constants';
 
-function MoviesCardList({ cards, isSavedFilms, isLoading, isReqErr, isNotFound }) {
+function MoviesCardList({
+  cards,
+  isSavedFilms,
+  isLoading,
+  isReqErr,
+  isNotFound,
+  handleLikeClick,
+  savedMovies,
+  onCardDelete,
+}) {
   const [shownMovies, setShownMovies] = useState(0);
+
+  // console.log(savedMovies);
 
   function shownCount() {
     const display = window.innerWidth;
@@ -46,6 +57,10 @@ function MoviesCardList({ cards, isSavedFilms, isLoading, isReqErr, isNotFound }
     }
   }
 
+  function getSavedMovieCard(savedMovies, card) {
+    return savedMovies.find((savedMovie) => savedMovie.movieId === card.id);
+  }
+
   return (
     <section className="cards">
       {isLoading && <Preloader />}
@@ -61,7 +76,15 @@ function MoviesCardList({ cards, isSavedFilms, isLoading, isReqErr, isNotFound }
         <>
           <ul className="cards__list">
             {cards.slice(0, shownMovies).map((card) => (
-              <MoviesCard key={card.id} card={card} isSavedFilms={isSavedFilms} />
+              <MoviesCard
+                key={isSavedFilms ? card._id : card.id}
+                saved={getSavedMovieCard(savedMovies, card)}
+                cards={cards}
+                card={card}
+                isSavedFilms={isSavedFilms}
+                handleLikeClick={handleLikeClick}
+                onCardDelete={onCardDelete}
+              />
             ))}
           </ul>
           <div className="cards__button-container">
