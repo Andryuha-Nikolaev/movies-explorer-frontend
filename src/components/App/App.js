@@ -91,7 +91,6 @@ function App() {
         if (res) {
           setIsLoggedIn(true);
           localStorage.setItem('jwt', res.token);
-          console.log(res.token);
           history.push('./movies');
         }
       })
