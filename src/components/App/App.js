@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation, Redirect } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 import Header from '../Header/Header';
@@ -168,10 +168,18 @@ function App() {
               <Footer />
             </Route>
             <Route path="/signin">
-              <Login onAuthorize={handleAuthorize} isLoading={isLoading} />
+              {!isLoggedIn ? (
+                <Login onAuthorize={handleAuthorize} isLoading={isLoading} />
+              ) : (
+                <Redirect to='/' />
+              )}
             </Route>
             <Route path="/signup">
-              <Register onRegister={handleRegister} isLoading={isLoading} />
+              {!isLoggedIn ? (
+                <Register onRegister={handleRegister} isLoading={isLoading} />
+              ) : (
+                <Redirect to='/' />
+              )}              
             </Route>
             <ProtectedRoute
               path="/movies"
