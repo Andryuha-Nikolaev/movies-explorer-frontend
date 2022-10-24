@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
@@ -16,8 +17,7 @@ function MoviesCardList({
   onCardDelete,
 }) {
   const [shownMovies, setShownMovies] = useState(0);
-
-  // console.log(savedMovies);
+  const { pathname } = useLocation();
 
   function shownCount() {
     const display = window.innerWidth;
@@ -74,36 +74,51 @@ function MoviesCardList({
       )}
       {!isLoading && !isReqErr && !isNotFound && (
         <>
-          <ul className="cards__list">
-            {cards.slice(0, shownMovies).map((card) => (
-              <MoviesCard
-                key={isSavedFilms ? card._id : card.id}
-                saved={getSavedMovieCard(savedMovies, card)}
-                cards={cards}
-                card={card}
-                isSavedFilms={isSavedFilms}
-                handleLikeClick={handleLikeClick}
-                onCardDelete={onCardDelete}
-              />
-            ))}
-          </ul>
-          <div className="cards__button-container">
-            {cards.length > shownMovies ? (
-              <button className="cards__button" onClick={showMore}>
-                Ещё
-              </button>
-            ) : (
-              ''
-            )}
-
-            {/* {isSavedFilms ? (
-              ''
-            ) : (
-              <button className="cards__button" onClick={showMore}>
-                Ещё
-              </button>
-            )} */}
-          </div>
+          {pathname === '/saved-movies' ? (
+            <>
+              <ul className="cards__list">
+                {cards.map((card) => (
+                  <MoviesCard
+                    key={isSavedFilms ? card._id : card.id}
+                    saved={getSavedMovieCard(savedMovies, card)}
+                    cards={cards}
+                    card={card}
+                    isSavedFilms={isSavedFilms}
+                    handleLikeClick={handleLikeClick}
+                    onCardDelete={onCardDelete}
+                    savedMovies={savedMovies}
+                  />
+                ))}
+              </ul>
+              <div className="cards__button-container"></div>
+            </>
+          ) : (
+            <>
+              <ul className="cards__list">
+                {cards.slice(0, shownMovies).map((card) => (
+                  <MoviesCard
+                    key={isSavedFilms ? card._id : card.id}
+                    saved={getSavedMovieCard(savedMovies, card)}
+                    cards={cards}
+                    card={card}
+                    isSavedFilms={isSavedFilms}
+                    handleLikeClick={handleLikeClick}
+                    onCardDelete={onCardDelete}
+                    savedMovies={savedMovies}
+                  />
+                ))}
+              </ul>
+              <div className="cards__button-container">
+                {cards.length > shownMovies ? (
+                  <button className="cards__button" onClick={showMore}>
+                    Ещё
+                  </button>
+                ) : (
+                  ''
+                )}
+              </div>
+            </>
+          )}
         </>
       )}
     </section>

@@ -9,11 +9,14 @@
   max-width: 1280px;
   min-width: 320px;
   width: 100%;
-  /* background-color: bisque; */
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.inactive-button {
+  pointer-events: none;
 }

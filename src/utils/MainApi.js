@@ -1,6 +1,5 @@
 import { checkResponse } from './utils';
 
-// export const BASE_URL = 'https://auth.nomoreparties.co';
 export const BASE_URL = 'https://api.movies-explorer.nomorepartiesxyz.ru';
 
 export const register = (name, email, password) => {
@@ -64,17 +63,6 @@ export const setUserInfo = (data) => {
   }).then((res) => checkResponse(res));
 };
 
-// метод получения карточек с сервера
-// getCards() {
-//   return fetch(`${this._url}/cards`, {
-//     method: 'GET',
-//     headers: {
-//       Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-//       'Content-Type': 'application/json'
-//     }
-//   }).then((res) => checkResponse(res))
-// }
-
 export const getCards = () => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'GET',
@@ -101,10 +89,8 @@ export const postCard = (data) => {
       year: data.year,
       description: data.description,
       image: 'https://api.nomoreparties.co' + data.image.url,
-      // image: data.image.url,
       trailerLink: data.trailerLink,
       thumbnail: 'https://api.nomoreparties.co' + data.image.formats.thumbnail.url,
-      // thumbnail: data.image.formats.thumbnail.url,
       movieId: data.id,
       nameRU: data.nameRU,
       nameEN: data.nameEN,

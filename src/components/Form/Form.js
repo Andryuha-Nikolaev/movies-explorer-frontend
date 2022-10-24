@@ -3,7 +3,17 @@ import { Link } from 'react-router-dom';
 import './Form.css';
 import logo from '../../images/logo.svg';
 
-function Form({ children, title, buttonText, question, linkText, link, onSubmit, isDisabled }) {
+function Form({
+  children,
+  title,
+  buttonText,
+  question,
+  linkText,
+  link,
+  onSubmit,
+  isDisabled,
+  isLoading,
+}) {
   return (
     <div className="form__container">
       <Link to="/" className="form__logo">
@@ -15,7 +25,9 @@ function Form({ children, title, buttonText, question, linkText, link, onSubmit,
         <button
           type="submit"
           className={
-            isDisabled ? 'form__button-save form__button-save_inactive' : 'form__button-save'
+            isDisabled || isLoading
+              ? 'form__button-save form__button-save_inactive'
+              : 'form__button-save'
           }>
           {buttonText}
         </button>

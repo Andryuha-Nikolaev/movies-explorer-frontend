@@ -3,7 +3,7 @@ import '../Form/Form.css';
 import Form from '../Form/Form';
 import useForm from '../hooks/useForm';
 
-function Register({ onRegister }) {
+function Register({ onRegister, isLoading }) {
   const { enteredValues, errors, handleChange, isFormValid } = useForm();
 
   function handleSubmit(e) {
@@ -23,7 +23,8 @@ function Register({ onRegister }) {
       linkText=" Войти"
       link="/signin"
       onSubmit={handleSubmit}
-      isDisabled={!isFormValid}>
+      isDisabled={!isFormValid}
+      isLoading={isLoading}>
       <label className="form__field">
         Имя
         <input

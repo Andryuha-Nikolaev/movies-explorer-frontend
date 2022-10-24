@@ -2,9 +2,14 @@ import React from 'react';
 import { durationConverter } from '../../utils/utils';
 import './MoviesCard.css';
 
-function MoviesCard({ card, isSavedFilms, handleLikeClick, onCardDelete, saved }) {
-  function onSave() {
-    handleLikeClick(card);
+function MoviesCard({ card, isSavedFilms, handleLikeClick, onCardDelete, saved, savedMovies }) {
+  function onCardClick() {
+    if (saved) {
+      onCardDelete(savedMovies.filter((m) => m.movieId === card.id)[0]);
+      console.log(savedMovies.filter((m) => m.movieId === card.id)[0]);
+    } else {
+      handleLikeClick(card);
+    }
   }
 
   function onDelete() {
@@ -34,10 +39,7 @@ function MoviesCard({ card, isSavedFilms, handleLikeClick, onCardDelete, saved }
         {isSavedFilms ? (
           <button type="button" className="card__delete-button" onClick={onDelete}></button>
         ) : (
-          <button
-            type="button"
-            className={cardSaveButtonClassName}
-            onClick={saved ? onDelete : onSave}></button>
+          <button type="button" className={cardSaveButtonClassName} onClick={onCardClick}></button>
         )}
       </div>
     </li>

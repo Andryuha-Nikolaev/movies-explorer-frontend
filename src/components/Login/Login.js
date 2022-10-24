@@ -3,7 +3,7 @@ import '../Form/Form.css';
 import Form from '../Form/Form';
 import useForm from '../hooks/useForm';
 
-function Login({ onAuthorize }) {
+function Login({ onAuthorize, isLoading }) {
   const { enteredValues, errors, handleChange, isFormValid } = useForm();
 
   function handleSubmit(e) {
@@ -22,7 +22,8 @@ function Login({ onAuthorize }) {
       linkText=" Регистрация"
       link="/signup"
       onSubmit={handleSubmit}
-      isDisabled={!isFormValid}>
+      isDisabled={!isFormValid}
+      isLoading={isLoading}>
       <label className="form__field">
         E-mail
         <input

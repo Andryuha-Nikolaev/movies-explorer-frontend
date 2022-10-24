@@ -9,7 +9,6 @@ export const checkResponse = (res) => {
 
 //фильтр по запросу
 export function filterMovies(movies, query) {
-  // console.log(movies);
   const moviesByQuery = movies.filter((movie) => {
     const movieRu = String(movie.nameRU).toLowerCase().trim();
     const movieEn = String(movie.nameEN).toLowerCase().trim();
@@ -18,8 +17,6 @@ export function filterMovies(movies, query) {
   });
   return moviesByQuery;
 }
-
-// , shortMoviesCheckbox
 
 //фильтр по длительности
 export function filterDuration(movies) {
@@ -30,9 +27,10 @@ export function filterDuration(movies) {
 export function durationConverter(duration) {
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
-  if (hours > 0) {
-    return `${hours}ч ${minutes}м`;
-  } else {
-    return `${minutes}м`;
-  }
+  return `${hours}ч${minutes}м`;
+  // if (hours > 0) {
+  //   return `${hours}ч${minutes}м`;
+  // } else {
+  //   return `${minutes}м`;
+  // }
 }

@@ -11,6 +11,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
@@ -22,34 +23,29 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isAddMovie, setIsAddMovie] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const path = location.pathname;
-  // const [profileName, setProfileName] = useState('');
+
   //Проверка токена и авторизация пользователя
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
 
-    // history.push(path);
     if (jwt) {
       api
         .getContent(jwt)
         .then((res) => {
           if (res) {
             setIsLoggedIn(true);
-            // setProfileName(res.name);
           }
-          // history.push(path);
-          // history.push('/movies');
+          history.push(path);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  });
-
-  // useEffect(() => {
-  //   history.push(path);
-  // }, [path, history]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -57,8 +53,6 @@ function App() {
         .getUserInfo()
         .then((profileInfo) => {
           setCurrentUser(profileInfo);
-
-          history.push('/movies');
         })
         .catch((err) => {
           console.log(err);
@@ -68,88 +62,29 @@ function App() {
         .getCards()
         .then((cardsData) => {
           setSavedMovies(cardsData.reverse());
-
-          // console.log(currentUser);
-          // setSavedMovies(cardsData.reverse());
-          // setIsReqErr(false);
         })
         .catch((err) => {
-          // setIsReqErr(true);
           console.log(err);
         });
-
-      // api.getCards().then((cardsData) => {
-      //   setCards(cardsData)
-      // })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   })
     }
   }, [isLoggedIn, history]);
-
-  // const savedMovies = allSavedMovies.filter((movie) => movie.owner === currentUser._id);
-  // [isLoggedIn, history]
-
-  // useEffect(() => {
-  //   getUserInfo();
-  // }, []);
-
-  // function getUserInfo() {
-  //   const jwt = localStorage.getItem('jwt');
-  //   const path = location.pathname;
-  //   // history.push(path);
-  //   if (jwt) {
-  //     api
-  //       .getContent(jwt)
-  //       .then((res) => {
-  //         setCurrentUser(res);
-  //         setIsLoggedIn(true);
-  //         // history.push(path);
-  //         // setProfileName(res.name);
-  //         history.push(path);
-  //         // history.push('/movies');
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   const path = location.pathname;
-  //   history.push(path);
-  // }, [history, location.pathname]);
-
-  // function handleLocation() {
-  //   const path = location.pathname;
-  //   history.push(path);
-  // }
 
   //регистрация пользователя
   function handleRegister({ name, email, password }) {
     api
       .register(name, email, password)
-      .then((res) => {
-        if (res) {
-          console.log('успех!!!!!!!!!!!!');
-          console.log(res);
-          // setIsSuccess(true);
-          // setIsInfoTooltipPopupOpen(true);
-          // history.push('./signin');
-        }
-      })
       .then(() => {
         handleAuthorize({ email, password });
       })
       .catch((err) => {
-        // setIsSuccess(false);
-        // setIsInfoTooltipPopupOpen(true);
+        setIsSuccess(false);
         console.log(err);
       });
   }
 
   //авторизация пользователя
   function handleAuthorize({ email, password }) {
+    setIsLoading(true);
     api
       .authorize(email, password)
       .then((res) => {
@@ -161,20 +96,27 @@ function App() {
         }
       })
       .catch((err) => {
-        // setIsSuccess(false);
-        // setIsInfoTooltipPopupOpen(true);
+        setIsSuccess(false);
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleUpdateUser(newUserInfo) {
+    setIsLoading(true);
     api
       .setUserInfo(newUserInfo)
       .then((data) => {
         setCurrentUser(data);
       })
       .catch((err) => {
+        setIsSuccess(false);
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -185,31 +127,19 @@ function App() {
         setSavedMovies([newMovie, ...savedMovies]);
       })
       .catch((err) => {
+        setIsSuccess(false);
         console.log(err);
       });
   }
 
   function handleCardDelete(card) {
-    const savedMovie = savedMovies.find((item) => {
-      if (item.movieId === card.id || item.movieId === card.movieId) {
-        return item;
-      } else {
-        return savedMovies;
-      }
-    });
     api
-      .deleteCard(savedMovie._id)
+      .deleteCard(card._id)
       .then(() => {
-        const newMoviesList = savedMovies.filter((item) => {
-          if (card.id === item.movieId || card.movieId === item.movieId) {
-            return false;
-          } else {
-            return true;
-          }
-        });
-        setSavedMovies(newMoviesList);
+        setSavedMovies((state) => state.filter((item) => item._id !== card._id));
       })
       .catch((err) => {
+        setIsSuccess(false);
         console.log(err);
       });
   }
@@ -218,12 +148,15 @@ function App() {
   const handleSignOut = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('jwt');
-    // history.push('/signin');
     localStorage.removeItem('movies');
     localStorage.removeItem('movieSearch');
     localStorage.removeItem('shortMovies');
     history.push('/');
   };
+
+  function closeUnsuccessPopup() {
+    setIsSuccess(true);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -236,10 +169,10 @@ function App() {
               <Footer />
             </Route>
             <Route path="/signin">
-              <Login onAuthorize={handleAuthorize} />
+              <Login onAuthorize={handleAuthorize} isLoading={isLoading} />
             </Route>
             <Route path="/signup">
-              <Register onRegister={handleRegister} />
+              <Register onRegister={handleRegister} isLoading={isLoading} />
             </Route>
             <ProtectedRoute
               path="/movies"
@@ -259,12 +192,14 @@ function App() {
               signOut={handleSignOut}
               onUpdateUser={handleUpdateUser}
               loggedIn={isLoggedIn}
-              component={Profile}></ProtectedRoute>
+              component={Profile}
+              isLoading={isLoading}></ProtectedRoute>
 
             <Route path="/*">
               <NotFound />
             </Route>
           </Switch>
+          <InfoTooltip isSuccess={isSuccess} onClose={closeUnsuccessPopup} />
         </div>
       </div>
     </CurrentUserContext.Provider>

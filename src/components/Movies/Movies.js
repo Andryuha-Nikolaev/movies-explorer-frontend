@@ -90,7 +90,6 @@ function Movies({ loggedIn, handleLikeClick, savedMovies, onCardDelete }) {
       } else {
         setFilteredMovies(movies);
       }
-      // setIsNotFound(movies.length === 0 ? true : false);
     } else {
       // setIsNotFound(true);
     }
@@ -116,7 +115,6 @@ function Movies({ loggedIn, handleLikeClick, savedMovies, onCardDelete }) {
         onFilter={handleShortMovies}
         isShortMovies={isShortMovies}
       />
-      {/* <span onClick={handleSingOut}>gggggg</span> */}
       <MoviesCardList
         savedMovies={savedMovies}
         cards={filteredMovies}

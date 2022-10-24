@@ -4,7 +4,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 import useForm from '../hooks/useForm';
 
-function Profile({ signOut, onUpdateUser, loggedIn }) {
+function Profile({ signOut, onUpdateUser, loggedIn, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
 
   const { enteredValues, errors, handleChange, isFormValid, resetForm } = useForm();
@@ -63,7 +63,7 @@ function Profile({ signOut, onUpdateUser, loggedIn }) {
           <button
             type="submit"
             className={
-              !isFormValid
+              !isFormValid || isLoading
                 ? 'profile__button-save form__button-save_inactive'
                 : 'profile__button-save'
             }>
