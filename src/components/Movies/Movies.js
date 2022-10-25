@@ -10,6 +10,7 @@ import * as movies from '../../utils/MoviesApi';
 
 function Movies({ loggedIn, handleLikeClick, savedMovies, onCardDelete }) {
   const [isLoading, setIsLoading] = useState(false); //загрузка прелоадер
+  // const [allMovies, setAllMovies] = useState([]);
   const [initialMovies, setInitialMovies] = useState([]); //отфильтрованные по запросу
   const [filteredMovies, setFilteredMovies] = useState([]); //отфильтрованные по запросу и чекбоксу
   const [isShortMovies, setIsShortMovies] = useState(false); //включен ли чекбокс короткометражек
@@ -30,6 +31,7 @@ function Movies({ loggedIn, handleLikeClick, savedMovies, onCardDelete }) {
     setInitialMovies(moviesList); //записываем в стейт
     setFilteredMovies(short ? filterDuration(moviesList) : moviesList); //если чекбокс тру, то фильруем по длине и записываем в стейт
     localStorage.setItem('movies', JSON.stringify(moviesList));
+    localStorage.setItem('allMovies', JSON.stringify(movies));
     // setIsNotFound(moviesList.length === 0 ? true : false);
   }
 
@@ -53,24 +55,39 @@ function Movies({ loggedIn, handleLikeClick, savedMovies, onCardDelete }) {
   //submit
   function onSearchMovies(query) {
     console.log(query);
-    setIsLoading(true);
 
     localStorage.setItem('movieSearch', query);
     localStorage.setItem('shortMovies', isShortMovies);
 
-    movies
-      .getCards()
-      .then((cardsData) => {
-        handleFilterMovies(cardsData, query, isShortMovies);
-        setIsReqErr(false);
-      })
-      .catch((err) => {
-        setIsReqErr(true);
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    if (localStorage.getItem('allMovies')) {
+      const movies = JSON.parse(localStorage.getItem('allMovies'));
+      console.log('lo');
+      handleFilterMovies(movies, query, isShortMovies);
+    } else {
+      console.log('nolo');
+      setIsLoading(true);
+      movies
+        .getCards()
+        .then((cardsData) => {
+          handleFilterMovies(cardsData, query, isShortMovies);
+          setIsReqErr(false);
+          // setAllMovies(cardsData);
+        })
+        .catch((err) => {
+          setIsReqErr(true);
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+
+    // if (allMovies.length === 0) {
+
+    // } else {
+    //   console.log('lo');
+    //   handleFilterMovies(allMovies, query, isShortMovies);
+    // }
   }
 
   useEffect(() => {

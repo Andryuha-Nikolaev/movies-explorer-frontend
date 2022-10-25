@@ -24,6 +24,7 @@ function Form({
         {children}
         <button
           type="submit"
+          disabled={isDisabled ? true : false}
           className={
             isDisabled || isLoading
               ? 'form__button-save form__button-save_inactive'

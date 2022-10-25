@@ -68,6 +68,10 @@
     border-bottom: 2px solid transparent;
   }
 
+  .navigation__link_active {
+    color: #2be080;
+  }
+
   .navigation__link:hover {
     border-bottom: 2px solid #000000;
   }

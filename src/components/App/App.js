@@ -25,6 +25,7 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [isSuccess, setIsSuccess] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
   const path = location.pathname;
 
   //Проверка токена и авторизация пользователя
@@ -36,6 +37,7 @@ function App() {
         .getContent(jwt)
         .then((res) => {
           if (res) {
+            localStorage.removeItem('allMovies');
             setIsLoggedIn(true);
           }
           history.push(path);
@@ -108,11 +110,13 @@ function App() {
     api
       .setUserInfo(newUserInfo)
       .then((data) => {
+        setIsUpdate(true);
         setCurrentUser(data);
       })
       .catch((err) => {
         setIsSuccess(false);
         console.log(err);
+        handleUnauthorized(err);
       })
       .finally(() => {
         setIsLoading(false);
@@ -128,6 +132,7 @@ function App() {
       .catch((err) => {
         setIsSuccess(false);
         console.log(err);
+        handleUnauthorized(err);
       });
   }
 
@@ -140,7 +145,14 @@ function App() {
       .catch((err) => {
         setIsSuccess(false);
         console.log(err);
+        handleUnauthorized(err);
       });
+  }
+
+  function handleUnauthorized(err) {
+    if (err === 'Error: 401') {
+      handleSignOut();
+    }
   }
 
   // Выход
@@ -150,11 +162,13 @@ function App() {
     localStorage.removeItem('movies');
     localStorage.removeItem('movieSearch');
     localStorage.removeItem('shortMovies');
+    localStorage.removeItem('allMovies');
     history.push('/');
   };
 
   function closeUnsuccessPopup() {
     setIsSuccess(true);
+    setIsUpdate(false);
   }
 
   return (
@@ -171,15 +185,15 @@ function App() {
               {!isLoggedIn ? (
                 <Login onAuthorize={handleAuthorize} isLoading={isLoading} />
               ) : (
-                <Redirect to='/' />
+                <Redirect to="/" />
               )}
             </Route>
             <Route path="/signup">
               {!isLoggedIn ? (
                 <Register onRegister={handleRegister} isLoading={isLoading} />
               ) : (
-                <Redirect to='/' />
-              )}              
+                <Redirect to="/" />
+              )}
             </Route>
             <ProtectedRoute
               path="/movies"
@@ -207,6 +221,7 @@ function App() {
             </Route>
           </Switch>
           <InfoTooltip isSuccess={isSuccess} onClose={closeUnsuccessPopup} />
+          <InfoTooltip isSuccess={!isUpdate} isUpdate={isUpdate} onClose={closeUnsuccessPopup} />
         </div>
       </div>
     </CurrentUserContext.Provider>

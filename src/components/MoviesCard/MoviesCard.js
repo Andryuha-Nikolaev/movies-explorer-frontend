@@ -6,7 +6,6 @@ function MoviesCard({ card, isSavedFilms, handleLikeClick, onCardDelete, saved, 
   function onCardClick() {
     if (saved) {
       onCardDelete(savedMovies.filter((m) => m.movieId === card.id)[0]);
-      console.log(savedMovies.filter((m) => m.movieId === card.id)[0]);
     } else {
       handleLikeClick(card);
     }
@@ -14,7 +13,6 @@ function MoviesCard({ card, isSavedFilms, handleLikeClick, onCardDelete, saved, 
 
   function onDelete() {
     onCardDelete(card);
-    console.log(card);
   }
 
   const cardSaveButtonClassName = `${

@@ -1,7 +1,7 @@
 .popup {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.2s, opacity 0.2s linear;
+  /* transition: visibility 0.2s, opacity 0.2s linear; */
   display: flex;
   position: fixed;
   z-index: 10;
@@ -17,7 +17,7 @@
 .popup_opened {
   visibility: visible;
   opacity: 1;
-  transition: opacity 0.2s linear;
+  /* transition: opacity 0.2s linear; */
 }
 
 .popup__container {

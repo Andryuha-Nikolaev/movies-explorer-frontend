@@ -1,13 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Profile.css';
 import Header from '../Header/Header';
 import useForm from '../hooks/useForm';
+import { EMAIL_REGEX, USER_NAME_REGEX } from '../../utils/constants';
 
 function Profile({ signOut, onUpdateUser, loggedIn, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
 
   const { enteredValues, errors, handleChange, isFormValid, resetForm } = useForm();
+  const [isLastValues, setIsLastValues] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -22,6 +24,16 @@ function Profile({ signOut, onUpdateUser, loggedIn, isLoading }) {
       email: enteredValues.email,
     });
   }
+
+  useEffect(() => {
+    if (currentUser.name === enteredValues.name && currentUser.email === enteredValues.email) {
+      setIsLastValues(true);
+    } else {
+      setIsLastValues(false);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enteredValues]);
 
   return (
     <>
@@ -41,7 +53,7 @@ function Profile({ signOut, onUpdateUser, loggedIn, isLoading }) {
               required
               onChange={handleChange}
               value={enteredValues.name || ''}
-              pattern="^[A-Za-zА-Яа-яЁё /s -]+$"
+              pattern={USER_NAME_REGEX}
             />
             <span className="profile__input-error">{errors.name}</span>
           </label>
@@ -56,14 +68,16 @@ function Profile({ signOut, onUpdateUser, loggedIn, isLoading }) {
               type="email"
               required
               onChange={handleChange}
+              pattern={EMAIL_REGEX}
               value={enteredValues.email || ''}
             />
             <span className="profile__input-error">{errors.email}</span>
           </label>
           <button
             type="submit"
+            disabled={!isFormValid ? true : false}
             className={
-              !isFormValid || isLoading
+              !isFormValid || isLoading || isLastValues
                 ? 'profile__button-save form__button-save_inactive'
                 : 'profile__button-save'
             }>

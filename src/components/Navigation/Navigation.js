@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Navigation.css';
 import account from '../../images/acc-button.svg';
 
@@ -10,15 +10,28 @@ function Navigation({ handleClose }) {
       <div className="navigation__container">
         <button className="navigation__close-button" onClick={handleClose}></button>
         <nav className="navigation__nav">
-          <Link to="/" onClick={handleClose} className="navigation__link">
+          <NavLink
+            exact
+            to="/"
+            onClick={handleClose}
+            className="navigation__link"
+            activeClassName="navigation__link_active">
             Главная
-          </Link>
-          <Link to="/movies" onClick={handleClose} className="navigation__link">
+          </NavLink>
+          <NavLink
+            to="/movies"
+            onClick={handleClose}
+            className="navigation__link"
+            activeClassName="navigation__link_active">
             Фильмы
-          </Link>
-          <Link to="/saved-movies" onClick={handleClose} className="navigation__link">
+          </NavLink>
+          <NavLink
+            to="/saved-movies"
+            onClick={handleClose}
+            className="navigation__link"
+            activeClassName="navigation__link_active">
             Сохранённые фильмы
-          </Link>
+          </NavLink>
         </nav>
         <Link to="/profile" onClick={handleClose} className="navigation__account-button">
           <img src={account} alt="аккаунт" />

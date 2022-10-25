@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './NotFound.css';
 
 function NotFound() {
+  // const history = useHistory();
   return (
     <section className="not-found">
       <h2 className="not-found__title">404</h2>

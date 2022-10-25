@@ -4,7 +4,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import SearchError from '../SearchError/SearchError';
-import { showMoreDecktop, showMoreTablet, showMoreMobile } from '../../utils/constants';
+import { SHOW_MORE_DECKTOP, SHOW_MORE_TABLET, SHOW_MORE_MOBILE } from '../../utils/constants';
 
 function MoviesCardList({
   cards,
@@ -45,15 +45,15 @@ function MoviesCardList({
   function showMore() {
     const display = window.innerWidth;
     if (display > 1180) {
-      setShownMovies(shownMovies + showMoreDecktop);
+      setShownMovies(shownMovies + SHOW_MORE_DECKTOP);
     } else if (display > 1023) {
-      setShownMovies(shownMovies + showMoreTablet);
+      setShownMovies(shownMovies + SHOW_MORE_TABLET);
     }
     // else if (display > 800) {
     //   setShownMovies(shownMovies + 2);
     // }
     else if (display < 1023) {
-      setShownMovies(shownMovies + showMoreMobile);
+      setShownMovies(shownMovies + SHOW_MORE_MOBILE);
     }
   }
 

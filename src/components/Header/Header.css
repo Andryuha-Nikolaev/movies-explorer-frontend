@@ -32,6 +32,10 @@
   text-decoration: none;
 }
 
+.header__button_active {
+  color: #2be080;
+}
+
 .header__button:hover {
   cursor: pointer;
   opacity: 0.6;
