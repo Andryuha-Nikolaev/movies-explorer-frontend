@@ -22,21 +22,13 @@
 + Webpack
 
 ## Установка и запуск проекта:
-Клонировать репозиторий:
+Клонировать репозиторий: `git clone https://github.com/Andryuha-Nikolaev/movies-explorer-frontend.git`
 
-    git clone https://github.com/Andryuha-Nikolaev/movies-explorer-frontend.git
+Установить зависимости: `npm install`
 
-Установить зависимости:
+Запустить сервер: `npm run start`
 
-    npm install
-
-Запустить сервер:
-
-    npm run start
-
-Запустить сервер с hot-reload:
-
-    npm run dev
+Запустить сервер с hot-reload: `npm run dev`
 
 ## Чеклист:
 + [Критерии диплома веб-разработчика](https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/index.html)
