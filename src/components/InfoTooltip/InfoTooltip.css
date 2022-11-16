@@ -1,0 +1,127 @@
+.popup {
+  visibility: hidden;
+  opacity: 0;
+  /* transition: visibility 0.2s, opacity 0.2s linear; */
+  display: flex;
+  position: fixed;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+  /* transition: opacity 0.2s linear; */
+}
+
+.popup__container {
+  position: relative;
+  border-radius: 10px;
+  background-color: #fff;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 36px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__container {
+    max-width: 282px;
+    padding: 25px 22px;
+  }
+}
+
+.popup__close-button {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: -40px;
+  right: -40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.popup__close-button:hover {
+  opacity: 0.6;
+}
+
+.popup__close-button:before {
+  position: absolute;
+  content: '';
+  height: 35px;
+  border: 2px solid #fff;
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.popup__close-button:after {
+  position: absolute;
+  content: '';
+  height: 35px;
+  border: 2px solid #fff;
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 767px) {
+  .popup__close-button {
+    width: 20px;
+    height: 20px;
+    right: 0;
+  }
+
+  .popup__close-button:before {
+    height: 28px;
+    border-width: 1px;
+  }
+
+  .popup__close-button:after {
+    height: 28px;
+    border-width: 1px;
+  }
+}
+
+.popup__signup-image {
+  width: 120px;
+  height: 120px;
+  margin-top: 26px;
+  margin-bottom: 32px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__signup-image {
+    margin-top: 25px;
+    margin-bottom: 40px;
+  }
+}
+
+.popup__signup-title {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 26px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__signup-title {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 25px;
+  }
+}

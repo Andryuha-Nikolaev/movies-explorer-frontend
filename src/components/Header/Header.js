@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Header.css';
 import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 import account from '../../images/acc-button.svg';
 import menu from '../../images/menu-button.svg';
 
-const loggedIn = true;
-
-function Header() {
+function Header({ loggedIn }) {
   const [isClicked, setIsClicked] = useState(false);
 
   function handleOpen() {
@@ -41,12 +39,18 @@ function Header() {
             <img src={logo} alt="логотип" />
           </Link>
           <div className="header__button-container_films">
-            <Link to="/movies" className="header__button">
+            <NavLink
+              to="/movies"
+              className="header__button"
+              activeClassName="header__button_active">
               Фильмы
-            </Link>
-            <Link to="/saved-movies" className="header__button">
+            </NavLink>
+            <NavLink
+              to="/saved-movies"
+              className="header__button"
+              activeClassName="header__button_active">
               Сохранённые фильмы
-            </Link>
+            </NavLink>
           </div>
           <div className="header__button-container">
             <Link to="/profile" className="header__account-button">

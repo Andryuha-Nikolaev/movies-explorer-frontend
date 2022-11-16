@@ -37,6 +37,7 @@
   line-height: 13px;
   min-height: 30px;
   cursor: text;
+  position: relative;
 }
 
 .profile__input {
@@ -51,6 +52,20 @@
   line-height: 13px;
   border: none;
   outline: none;
+}
+
+.profile__input-error {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ff4062;
+  position: absolute;
+  top: 16px;
+  right: 0;
+  text-align: right;
 }
 
 .profile__input:focus {

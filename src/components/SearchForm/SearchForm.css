@@ -2,6 +2,20 @@
   padding: 64px 70px 48px;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.search__form-error {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #2be080;
 }
 
 .search__form {

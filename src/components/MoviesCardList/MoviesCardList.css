@@ -53,8 +53,14 @@
 @media screen and (max-width: 1023px) {
   .cards__list {
     padding: 70px 30px 30px;
-    grid-template-columns: repeat(auto-fit, 339px);
+    grid-template-columns: repeat(2, 339px);
     gap: 36px 30px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .cards__list {
+    grid-template-columns: repeat(1, 339px);
   }
 }
 
